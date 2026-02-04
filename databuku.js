@@ -14,13 +14,13 @@ const dataBuku = [
 {no:13,judul:"Desentralisasi Radikal Ikhtiar Pengembangan Wilayah Imekko Sorong Selatan",pengarang:"Bambang Purwoko, Arie Ruhyanto, dkk",penerbit:"Ifada Publishing (IKAPI)",tahun:2017,genre:"Non Fiksi",stok:1,ket:"Tersedia"},
 {no:14,judul:"Manajemen Pemerintahan Daerah Otonom Baru Praktik Baik Pemerintahan di Kab. Puncak Papua",pengarang:"Bambang Purwoko",penerbit:"Gadjah Mada University ",tahun:2018,genre:"Non Fiksi",stok:2,ket:"Tersedia"},
 {no:15,judul:"COLLAPSE Runtuhnya Peradaban-peradaban Dunia",pengarang:"Jared Diamond",penerbit:"KPG (Kepustakaan Populer Gramedia)",tahun:2014,genre:"Non Fiksi",stok:1,ket:"Tersedia"},
-{no:16,judul:"In Defense of Smokers,pengarang:"Lauren A. Colby",penerbit:"INDONESIA BERDIKARI",tahun:2014,genre:"Non Fiksi",stok:1,ket:"Tersedia"},
+{no:16,judul:"In Defense of Smokers",pengarang:"Lauren A. Colby",penerbit:"INDONESIA BERDIKARI",tahun:2014,genre:"Non Fiksi",stok:1,ket:"Tersedia"},
 {no:17,judul:"Titik Nadir Demokrasi Kesunyian Manusia Dalam Negara",pengarang:"Emha Ainun Nadjib",penerbit:"PT Bentang Pustaka",tahun:2016,genre:"Non Fiksi",stok:1,ket:"Tersedia"},
 {no:18,judul:"WONOSOBO Sejarah yang Terserak",pengarang:"Dwi Putranto Bimo Sasongko",penerbit:"Bimalukar Kreativa",tahun:2021,genre:"Non Fiksi",stok:1,ket:"Tersedia"},
 {no:19,judul:"Strategi Pembangunan",pengarang:"Matathir & Soeharto",penerbit:"Pelangi Cendekia",tahun:2005,genre:"Non Fiksi",stok:1,ket:"Tersedia"},
 {no:20,judul:"Perempuan di Wilayah Konflik",pengarang:"Gadis Arivia, Nur Iman Subono, Adriana Venny, Ida Danny, Asikin Arif",penerbit:"Yayasan Jurnal Perempuan",tahun:2002,genre:"Non Fiksi",stok:1,ket:"Tersedia"},
 {no:21,judul:"Dilarang Berekspresi Dilarang Keluar Malam DIlarang Pilih Baju Sendiri",pengarang:"Gadis Arivia, Ratna Syafrida Dhanny, Asikin Arif",pengarang:"Yayasan Jurnal Perempuan",tahun:2008,genre:"Non Fiksi",stok:1,ket:"Tersedia"},
 {no:22,judul:"Menelusuri Kearifan Lokal",pengarang:"Gadis Arivia, Ratna Syafrida Dhanny, Asikin Arif",penerbit:"Yayasan Jurnal Perempuan",tahun:2008,genre:"Non Fiksi",stok:1,ket:"Tersedia"},
-{no:23,judul:"Mencari Ruang Untuk DIfabel",pengarang:"Gadis Arivia, Ratna Syafrida Dhanny, Asikin Arif",penerbit:"Yayasan Jurnal Perempuan",tahun:2010,genre:"Non Fiksi,stok:1,ket:"Tersedia"},
+{no:23,judul:"Mencari Ruang Untuk DIfabel",pengarang:"Gadis Arivia, Ratna Syafrida Dhanny, Asikin Arif",penerbit:"Yayasan Jurnal Perempuan",tahun:2010,genre:"Non Fiksi",stok:1,ket:"Tersedia"},
 {no:24,judul:"Kesusastraan dan Kekuasaan",pengarang:"Goenawan Mohamad",penerbit:"PT Pustaka Firdaus",tahun:1993,genre:"Non Fiksi",stok:1,ket:"Tersedia"}
   ];
