@@ -3,83 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Data Buku Perpustakaan</title>
+    <title>Sistem Data Buku Responsif</title>
     <style>
-        /* CSS untuk mempercantik tampilan */
+        /* --- CSS DASAR --- */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f4f9;
             padding: 20px;
             color: #333;
         }
+        h2 { text-align: center; color: #2c3e50; }
 
-        h2 {
-            text-align: center;
-            color: #2c3e50;
-        }
-
-        /* Gaya untuk Kotak Pencarian */
+        /* --- PENCARIAN --- */
         #inputPencarian {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Search_Icon.svg/1024px-Search_Icon.svg.png'); /* Ikon search opsional */
-            background-position: 10px 10px;
-            background-repeat: no-repeat;
-            background-size: 20px;
             width: 100%;
-            font-size: 16px;
-            padding: 12px 20px 12px 40px;
-            border: 1px solid #ddd;
+            padding: 12px;
             margin-bottom: 20px;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            box-sizing: border-box; /* Agar padding tidak melebarkan elemen */
+            box-sizing: border-box;
+            font-size: 16px;
         }
 
-        #inputPencarian:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
-        }
-
-        /* Gaya untuk Tabel */
+        /* --- TABEL DESKTOP --- */
         table {
-            border-collapse: collapse;
             width: 100%;
+            border-collapse: collapse;
             background-color: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             border-radius: 5px;
             overflow: hidden;
         }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #2c3e50; color: white; text-transform: uppercase; font-size: 14px; }
+        tr:hover { background-color: #f1f1f1; }
 
-        th, td {
-            text-align: left;
-            padding: 12px 15px;
+        /* --- PAGINATION (TOMBOL HALAMAN) --- */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 5px;
         }
-
-        th {
+        .pagination button {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            background-color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .pagination button.active {
             background-color: #2c3e50;
             color: white;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 0.03em;
+            border-color: #2c3e50;
+        }
+        .pagination button:disabled {
+            background-color: #eee;
+            cursor: not-allowed;
+        }
+        #infoHalaman {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
         }
 
-        tr {
-            border-bottom: 1px solid #dddddd;
-        }
+        /* --- RESPONSIVE / MOBILE VIEW (KUNCI UTAMA) --- */
+        @media screen and (max-width: 768px) {
+            /* Sembunyikan Header Tabel Asli */
+            thead { display: none; }
+            
+            /* Ubah baris dan sel menjadi blok agar menumpuk ke bawah */
+            table, tbody, tr, td { display: block; width: 100%; }
+            
+            tr {
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                background-color: #fff;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            }
+            
+            td {
+                text-align: right; /* Isi data di kanan */
+                padding-left: 50%; /* Beri ruang untuk label */
+                position: relative;
+                border-bottom: 1px solid #eee;
+            }
 
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
+            td:last-child { border-bottom: none; }
 
-        tr:hover {
-            background-color: #f1f1f1;
-            cursor: default;
-        }
-
-        /* Responsif untuk layar kecil */
-        @media screen and (max-width: 600px) {
-            table {
-                display: block;
-                overflow-x: auto;
+            /* Membuat Label Judul Kolom di sebelah kiri (CSS Pseudo-elements) */
+            td::before {
+                content: attr(data-label); /* Mengambil teks dari atribut data-label di HTML */
+                position: absolute;
+                left: 15px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: #2c3e50;
             }
         }
     </style>
@@ -87,112 +111,137 @@
 <body>
 
     <h2>Daftar Inventaris Buku</h2>
-
-    <input type="text" id="inputPencarian" onkeyup="fungsiCari()" placeholder="Cari berdasarkan judul, pengarang, atau tahun...">
+    
+    <input type="text" id="inputPencarian" placeholder="Cari data...">
 
     <table id="tabelBuku">
         <thead>
             <tr>
-                <th style="width: 5%;">No</th>
-                <th style="width: 20%;">Judul Buku</th>
-                <th style="width: 15%;">Pengarang</th>
-                <th style="width: 15%;">Penerbit</th>
-                <th style="width: 10%;">Tahun</th>
-                <th style="width: 10%;">Genre</th>
-                <th style="width: 5%;">Stok</th>
-                <th style="width: 20%;">Keterangan</th>
+                <th>No</th>
+                <th>Judul Buku</th>
+                <th>Pengarang</th>
+                <th>Penerbit</th>
+                <th>Tahun</th>
+                <th>Genre</th>
+                <th>Stok</th>
+                <th>Keterangan</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Laskar Pelangi</td>
-                <td>Andrea Hirata</td>
-                <td>Bentang Pustaka</td>
-                <td>2005</td>
-                <td>Fiksi</td>
-                <td>12</td>
-                <td>Kondisi Baik</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Bumi Manusia</td>
-                <td>Pramoedya A. Toer</td>
-                <td>Hasta Mitra</td>
-                <td>1980</td>
-                <td>Sejarah</td>
-                <td>5</td>
-                <td>Edisi Lama</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Filosofi Teras</td>
-                <td>Henry Manampiring</td>
-                <td>Kompas</td>
-                <td>2018</td>
-                <td>Self-Help</td>
-                <td>20</td>
-                <td>Best Seller</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>Harry Potter 1</td>
-                <td>J.K. Rowling</td>
-                <td>Gramedia</td>
-                <td>2000</td>
-                <td>Fantasi</td>
-                <td>8</td>
-                <td>Terjemahan</td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Atomic Habits</td>
-                <td>James Clear</td>
-                <td>Penguin</td>
-                <td>2018</td>
-                <td>Pengembangan</td>
-                <td>0</td>
-                <td>Stok Kosong</td>
-            </tr>
-        </tbody>
+        <tbody id="bodyTabel">
+            </tbody>
     </table>
 
+    <div id="infoHalaman">Menampilkan halaman 1</div>
+    <div class="pagination" id="paginationControls">
+        </div>
+
     <script>
-        function fungsiCari() {
-            // Deklarasi variabel
-            var input, filter, table, tr, td, i, j, txtValue;
-            input = document.getElementById("inputPencarian");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("tabelBuku");
-            tr = table.getElementsByTagName("tr");
+        // --- DATA DUMMY (SAYA BUAT BANYAK AGAR BISA DITEST PAGINATIONNYA) ---
+        const dataBuku = [
+            {no:1, judul:"Laskar Pelangi", pengarang:"Andrea Hirata", penerbit:"Bentang", tahun:2005, genre:"Fiksi", stok:12, ket:"Baik"},
+            {no:2, judul:"Bumi Manusia", pengarang:"Pramoedya A.T", penerbit:"Hasta Mitra", tahun:1980, genre:"Sejarah", stok:5, ket:"Langka"},
+            {no:3, judul:"Harry Potter 1", pengarang:"J.K. Rowling", penerbit:"Gramedia", tahun:2000, genre:"Fantasi", stok:8, ket:"Terjemahan"},
+            {no:4, judul:"Atomic Habits", pengarang:"James Clear", penerbit:"Penguin", tahun:2018, genre:"Self-Help", stok:0, ket:"Kosong"},
+            {no:5, judul:"Filosofi Teras", pengarang:"Henry M.", penerbit:"Kompas", tahun:2018, genre:"Filsafat", stok:20, ket:"Best Seller"},
+            {no:6, judul:"Negeri 5 Menara", pengarang:"A. Fuadi", penerbit:"Gramedia", tahun:2009, genre:"Fiksi", stok:15, ket:"Baik"},
+            {no:7, judul:"Dilan 1990", pengarang:"Pidi Baiq", penerbit:"Mizan", tahun:2014, genre:"Romance", stok:10, ket:"Populer"},
+            {no:8, judul:"Pulang", pengarang:"Leila S. Chudori", penerbit:"KPG", tahun:2012, genre:"Sejarah", stok:4, ket:"Baik"},
+            {no:9, judul:"Cantik Itu Luka", pengarang:"Eka Kurniawan", penerbit:"Gramedia", tahun:2002, genre:"Sastra", stok:7, ket:"Award"},
+            {no:10, judul:"Rich Dad Poor Dad", pengarang:"Robert K.", penerbit:"Gramedia", tahun:1997, genre:"Keuangan", stok:3, ket:"Lama"},
+            {no:11, judul:"Sapiens", pengarang:"Yuval Noah", penerbit:"KPG", tahun:2011, genre:"Sejarah", stok:9, ket:"Tebal"},
+            {no:12, judul:"Laut Bercerita", pengarang:"Leila S. Chudori", penerbit:"KPG", tahun:2017, genre:"Fiksi", stok:6, ket:"Baru"},
+            {no:13, judul:"Garis Waktu", pengarang:"Fiersa Besari", penerbit:"MediaKita", tahun:2016, genre:"Romance", stok:11, ket:"Baik"},
+            {no:14, judul:"Madilog", pengarang:"Tan Malaka", penerbit:"Narasi", tahun:1943, genre:"Filsafat", stok:2, ket:"Rusak"},
+            {no:15, judul:"Supernova", pengarang:"Dee Lestari", penerbit:"Bentang", tahun:2001, genre:"Sci-Fi", stok:5, ket:"Lengkap"}
+        ];
 
-            // Loop melalui semua baris tabel (mulai dari index 1 karena index 0 adalah Header)
-            for (i = 1; i < tr.length; i++) {
-                var barisDitemukan = false;
-                // Ambil semua kolom (td) dalam baris tersebut
-                td = tr[i].getElementsByTagName("td");
-                
-                // Loop melalui setiap sel di dalam baris
-                for (j = 0; j < td.length; j++) {
-                    if (td[j]) {
-                        txtValue = td[j].textContent || td[j].innerText;
-                        // Jika ada teks yang cocok di salah satu kolom
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            barisDitemukan = true;
-                            break; // Hentikan loop kolom jika sudah ketemu
-                        }
-                    }
-                }
+        // --- KONFIGURASI ---
+        const rowsPerPage = 10;
+        let currentPage = 1;
+        let filteredData = dataBuku; // Data yang sedang ditampilkan (bisa data penuh atau hasil search)
 
-                // Tampilkan atau sembunyikan baris
-                if (barisDitemukan) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
+        // --- FUNGSI RENDER TABEL ---
+        function renderTable() {
+            const tbody = document.getElementById("bodyTabel");
+            tbody.innerHTML = "";
+
+            // Hitung index awal dan akhir untuk pagination
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            
+            // Ambil data sesuai halaman (slice)
+            const paginatedItems = filteredData.slice(start, end);
+
+            if (paginatedItems.length === 0) {
+                tbody.innerHTML = "<tr><td colspan='8' style='text-align:center;'>Data tidak ditemukan</td></tr>";
+                return;
             }
-        }
-    </script>
 
+            paginatedItems.forEach(item => {
+                const tr = document.createElement("tr");
+                // Perhatikan: attribute 'data-label' ditambahkan untuk tampilan Mobile
+                tr.innerHTML = `
+                    <td data-label="No">${item.no}</td>
+                    <td data-label="Judul Buku"><strong>${item.judul}</strong></td>
+                    <td data-label="Pengarang">${item.pengarang}</td>
+                    <td data-label="Penerbit">${item.penerbit}</td>
+                    <td data-label="Tahun">${item.tahun}</td>
+                    <td data-label="Genre">${item.genre}</td>
+                    <td data-label="Stok">${item.stok}</td>
+                    <td data-label="Keterangan">${item.ket}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            renderPagination();
+        }
+
+        // --- FUNGSI RENDER TOMBOL PAGINATION ---
+        function renderPagination() {
+            const paginationDiv = document.getElementById("paginationControls");
+            const infoDiv = document.getElementById("infoHalaman");
+            paginationDiv.innerHTML = "";
+
+            const pageCount = Math.ceil(filteredData.length / rowsPerPage);
+            infoDiv.innerText = `Halaman ${currentPage} dari ${pageCount} (Total ${filteredData.length} data)`;
+
+            // Tombol Previous
+            const prevBtn = document.createElement("button");
+            prevBtn.innerText = "Sebelumnya";
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.onclick = () => { currentPage--; renderTable(); };
+            paginationDiv.appendChild(prevBtn);
+
+            // Tombol Next
+            const nextBtn = document.createElement("button");
+            nextBtn.innerText = "Selanjutnya";
+            nextBtn.disabled = currentPage === pageCount || pageCount === 0;
+            nextBtn.onclick = () => { currentPage++; renderTable(); };
+            paginationDiv.appendChild(nextBtn);
+        }
+
+        // --- FUNGSI PENCARIAN ---
+        document.getElementById("inputPencarian").addEventListener("keyup", function() {
+            const keyword = this.value.toLowerCase();
+            
+            // Filter dataBuku berdasarkan keyword di semua kolom
+            filteredData = dataBuku.filter(item => {
+                return (
+                    item.judul.toLowerCase().includes(keyword) ||
+                    item.pengarang.toLowerCase().includes(keyword) ||
+                    item.penerbit.toLowerCase().includes(keyword) ||
+                    item.genre.toLowerCase().includes(keyword) ||
+                    item.tahun.toString().includes(keyword)
+                );
+            });
+
+            currentPage = 1; // Reset ke halaman 1 setiap kali mencari
+            renderTable();
+        });
+
+        // --- INISIALISASI PERTAMA ---
+        renderTable();
+
+    </script>
 </body>
 </html>
