@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Data Buku Perpustakaan</title>
+    <style>
+        /* CSS untuk mempercantik tampilan */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        /* Gaya untuk Kotak Pencarian */
+        #inputPencarian {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Search_Icon.svg/1024px-Search_Icon.svg.png'); /* Ikon search opsional */
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            background-size: 20px;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-sizing: border-box; /* Agar padding tidak melebarkan elemen */
+        }
+
+        #inputPencarian:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Gaya untuk Tabel */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px 15px;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.03em;
+        }
+
+        tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+            cursor: default;
+        }
+
+        /* Responsif untuk layar kecil */
+        @media screen and (max-width: 600px) {
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Daftar Inventaris Buku</h2>
+
+    <input type="text" id="inputPencarian" onkeyup="fungsiCari()" placeholder="Cari berdasarkan judul, pengarang, atau tahun...">
+
+    <table id="tabelBuku">
+        <thead>
+            <tr>
+                <th style="width: 5%;">No</th>
+                <th style="width: 20%;">Judul Buku</th>
+                <th style="width: 15%;">Pengarang</th>
+                <th style="width: 15%;">Penerbit</th>
+                <th style="width: 10%;">Tahun</th>
+                <th style="width: 10%;">Genre</th>
+                <th style="width: 5%;">Stok</th>
+                <th style="width: 20%;">Keterangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Laskar Pelangi</td>
+                <td>Andrea Hirata</td>
+                <td>Bentang Pustaka</td>
+                <td>2005</td>
+                <td>Fiksi</td>
+                <td>12</td>
+                <td>Kondisi Baik</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Bumi Manusia</td>
+                <td>Pramoedya A. Toer</td>
+                <td>Hasta Mitra</td>
+                <td>1980</td>
+                <td>Sejarah</td>
+                <td>5</td>
+                <td>Edisi Lama</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Filosofi Teras</td>
+                <td>Henry Manampiring</td>
+                <td>Kompas</td>
+                <td>2018</td>
+                <td>Self-Help</td>
+                <td>20</td>
+                <td>Best Seller</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Harry Potter 1</td>
+                <td>J.K. Rowling</td>
+                <td>Gramedia</td>
+                <td>2000</td>
+                <td>Fantasi</td>
+                <td>8</td>
+                <td>Terjemahan</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Atomic Habits</td>
+                <td>James Clear</td>
+                <td>Penguin</td>
+                <td>2018</td>
+                <td>Pengembangan</td>
+                <td>0</td>
+                <td>Stok Kosong</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function fungsiCari() {
+            // Deklarasi variabel
+            var input, filter, table, tr, td, i, j, txtValue;
+            input = document.getElementById("inputPencarian");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tabelBuku");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop melalui semua baris tabel (mulai dari index 1 karena index 0 adalah Header)
+            for (i = 1; i < tr.length; i++) {
+                var barisDitemukan = false;
+                // Ambil semua kolom (td) dalam baris tersebut
+                td = tr[i].getElementsByTagName("td");
+                
+                // Loop melalui setiap sel di dalam baris
+                for (j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        // Jika ada teks yang cocok di salah satu kolom
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            barisDitemukan = true;
+                            break; // Hentikan loop kolom jika sudah ketemu
+                        }
+                    }
+                }
+
+                // Tampilkan atau sembunyikan baris
+                if (barisDitemukan) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
