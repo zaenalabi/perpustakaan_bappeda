@@ -13,5 +13,5 @@ const dataBuku = [
   {no:12, judul:"Laut Bercerita", pengarang:"Leila S. Chudori", penerbit:"KPG", tahun:2017, genre:"Fiksi", stok:6, ket:"Baru Masuk"},
   {no:13, judul:"Garis Waktu", pengarang:"Fiersa Besari", penerbit:"MediaKita", tahun:2016, genre:"Romance", stok:11, ket:"Baik"},
   {no:14, judul:"Madilog", pengarang:"Tan Malaka", penerbit:"Narasi", tahun:1943, genre:"Filsafat", stok:2, ket:"Rusak Ringan"},
-  {no:15, judul:"Supernova: Ksatria, Puteri, dan Bintang Jatuh", pengarang:"Dee Lestari", penerbit:"Bentang", tahun:2001, genre:"Sci-Fi", stok:5, ket:"Lengkap"}
+  {no:15, judul:"Supernova", pengarang:"Dee Lestari", penerbit:"Bentang", tahun:2001, genre:"Sci-Fi", stok:5, ket:"Lengkap"}
   ];
